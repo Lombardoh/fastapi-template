@@ -1,15 +1,38 @@
 repos:
   - repo: local
     hooks:
-      - id: ruff-check
-        name: ruff check
-        entry: poetry run ruff check
-        language: system
-        types_or: [python, pyi]
-        pass_filenames: true
       - id: ruff-format
-        name: ruff format
-        entry: poetry run ruff format --check
+        name: ruff-format
+        entry: poetry run ruff format --config pyproject.toml
         language: system
-        types_or: [python, pyi]
-        pass_filenames: true
+        pass_filenames: false
+        files: ^.*\.py$
+
+      - id: ruff
+        name: ruff
+        entry: poetry run ruff check --config pyproject.toml
+        language: system
+        pass_filenames: false
+        files: ^.*\.py$
+
+      - id: pytest-smoke
+        name: pytest
+        entry: poetry run pytest
+        language: system
+        pass_filenames: false
+        files: ^.*\.py$
+
+      - id: mypy
+        name: mypy
+        entry: poetry run mypy .
+        language: system
+        pass_filenames: false
+        stages: [manual]
+        files: ^.*\.py$
+
+      - id: bandit
+        name: bandit
+        entry: poetry run python -X utf8 -m bandit -c pyproject.toml -r .
+        language: system
+        pass_filenames: false
+        files: ^.*\.py$

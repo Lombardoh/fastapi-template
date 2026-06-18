@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     host: str = Field(default="127.0.0.1", validation_alias=AliasChoices("APP_HOST", "app_host"))
     port: int = Field(default=8000, validation_alias=AliasChoices("APP_PORT", "app_port"))
     database_url: str = Field(
-        default="postgresql+asyncpg://postgres:postgres@localhost:5432/checkpoint",
+        default="postgresql+asyncpg://postgres:postgres@localhost:5436/checkpoint",
         validation_alias=AliasChoices("DATABASE_URL", "database_url"),
     )
 

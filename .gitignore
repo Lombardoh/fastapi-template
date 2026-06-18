@@ -29,6 +29,9 @@ ENV/
 
 # Testing and coverage
 .pytest_cache/
+.hypothesis/
+.tox/
+.nox/
 .coverage
 .coverage.*
 htmlcov/
@@ -36,8 +39,11 @@ coverage.xml
 
 # Type checkers and linters
 .mypy_cache/
+.dmypy.json
+dmypy.json
 .ruff_cache/
 .pyre/
+.pytype/
 
 # FastAPI/runtime
 .env

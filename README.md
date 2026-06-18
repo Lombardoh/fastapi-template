@@ -19,35 +19,19 @@ app/
 ## Setup
 
 ```powershell
+poetry env use (py -3.14 -c "import sys; print(sys.executable)")
 poetry install
 Copy-Item .env.example .env
+docker compose up -d postgres
 ```
 
 Configuration is read from environment variables or a local `.env` file. The expected keys are listed in `.env.example`.
+The local database uses PostgreSQL 18 so model primary keys can use native `uuidv7()`.
+The application runs on the host, so `DATABASE_URL` must use the exposed host port, `5436`.
 
 ## Alembic
 
-Initialize Alembic after installing dependencies:
-
 ```powershell
-poetry run alembic init migrations
-```
-
-Then configure `migrations/env.py` to use the application settings and SQLAlchemy metadata:
-
-```python
-from app.core.config import settings
-from app.db.base import Base
-import app.models
-
-config.set_main_option("sqlalchemy.url", settings.database_url)
-target_metadata = Base.metadata
-```
-
-After Alembic is configured:
-
-```powershell
-poetry run alembic revision --autogenerate -m "initial migration"
 poetry run alembic upgrade head
 ```
 
