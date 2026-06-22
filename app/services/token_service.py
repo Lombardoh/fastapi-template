@@ -6,9 +6,11 @@ from uuid import UUID
 import jwt
 from jwt.exceptions import InvalidTokenError as PyJWTInvalidTokenError
 
-
-class InvalidTokenError(ValueError):
-    pass
+from app.exceptions.token import (
+    InvalidAccessTokenError,
+    InvalidAccessTokenSubjectError,
+    InvalidAccessTokenTypeError,
+)
 
 
 class TokenService:
@@ -45,7 +47,7 @@ class TokenService:
             algorithm=self.algorithm,
         )
 
-    def decode_access_token(self, token: str) -> UUID:
+    def decode_access_token(self, token: str, locale: str) -> UUID:
         try:
             payload = jwt.decode(
                 token,
@@ -57,12 +59,12 @@ class TokenService:
                 },
             )
         except PyJWTInvalidTokenError as exc:
-            raise InvalidTokenError("Invalid access token") from exc
+            raise InvalidAccessTokenError(locale) from exc
 
         if payload["type"] != "access":
-            raise InvalidTokenError("Invalid access token type")
+            raise InvalidAccessTokenTypeError(locale)
 
         try:
             return UUID(payload["sub"])
         except (TypeError, ValueError) as exc:
-            raise InvalidTokenError("Invalid access token subject") from exc
+            raise InvalidAccessTokenSubjectError(locale) from exc

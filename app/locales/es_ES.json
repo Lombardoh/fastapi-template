@@ -1,0 +1,10 @@
+{
+  "forbidden": "No tienes permiso para realizar esta acción",
+  "invalid_access_token": "Token de acceso inválido",
+  "invalid_access_token_subject": "Sujeto del token de acceso inválido",
+  "invalid_access_token_type": "Tipo de token de acceso inválido",
+  "not_found": "Recurso no encontrado",
+  "request_error": "No se pudo completar la solicitud",
+  "unauthorized": "Se requiere autenticación",
+  "validation_error": "La solicitud contiene datos inválidos"
+}
