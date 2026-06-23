@@ -10,6 +10,9 @@ from app.exceptions.token import (
     InvalidAccessTokenError,
     InvalidAccessTokenSubjectError,
     InvalidAccessTokenTypeError,
+    InvalidTokenIssuerError,
+    InvalidTokenLifetimeError,
+    InvalidTokenSecretError,
 )
 
 
@@ -23,11 +26,11 @@ class TokenService:
         access_token_lifetime: timedelta,
     ) -> None:
         if not secret_key:
-            raise ValueError("Secret key must not be empty")
+            raise InvalidTokenSecretError
         if not issuer:
-            raise ValueError("Issuer must not be empty")
+            raise InvalidTokenIssuerError
         if access_token_lifetime <= timedelta(0):
-            raise ValueError("Access token lifetime must be positive")
+            raise InvalidTokenLifetimeError
 
         self._secret_key = secret_key
         self._issuer = issuer
