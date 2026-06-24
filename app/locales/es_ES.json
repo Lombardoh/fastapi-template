@@ -9,6 +9,7 @@
   "invalid_token_lifetime": "Configuración inválida de la duración del token",
   "invalid_token_secret": "Configuración inválida del secreto del token",
   "not_found": "Recurso no encontrado",
+  "product_not_found": "Producto no encontrado",
   "request_error": "No se pudo completar la solicitud",
   "unauthorized": "Se requiere autenticación",
   "user_already_exists": "Ya existe un usuario con este usuario o email",
