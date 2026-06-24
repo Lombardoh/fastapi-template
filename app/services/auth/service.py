@@ -22,12 +22,20 @@ class AuthService:
         self._tokens = token_service
         self._passwords = password_service
 
-    async def register(self, email: str, password: str, locale: str) -> tuple[User, str]:
-        existing_user = await self._users.get_by_email(email)
-        if existing_user is not None:
+    async def register(
+        self,
+        username: str,
+        email: str,
+        password: str,
+        locale: str,
+    ) -> tuple[User, str]:
+        existing_username = await self._users.get_by_username(username)
+        existing_email = await self._users.get_by_email(email)
+        if existing_username is not None or existing_email is not None:
             raise UserAlreadyExistsError(locale)
 
         user = self._users.create(
+            username=username,
             email=email,
             password_hash=self._passwords.hash_password(password),
         )
@@ -44,8 +52,8 @@ class AuthService:
 
         return created_user, self._tokens.create_access_token(created_user.id)
 
-    async def login(self, email: str, password: str, locale: str) -> tuple[User, str]:
-        user = await self._users.get_by_email(email)
+    async def login(self, identifier: str, password: str, locale: str) -> tuple[User, str]:
+        user = await self._users.get_by_identifier(identifier)
         if user is None or not self._passwords.verify_password(password, user.password):
             raise InvalidCredentialsError(locale)
 

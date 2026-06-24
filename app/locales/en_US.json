@@ -11,7 +11,7 @@
   "not_found": "Resource not found",
   "request_error": "The request could not be completed",
   "unauthorized": "Authentication is required",
-  "user_already_exists": "A user with this email already exists",
+  "user_already_exists": "A user with this username or email already exists",
   "user_not_found": "User not found",
   "validation_error": "The request contains invalid data"
 }

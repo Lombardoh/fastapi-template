@@ -2,20 +2,25 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Index, String, text
+from sqlalchemy import Boolean, Enum, Index, String, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.constants.user_constants import UserScope
 from app.models.base import BaseModel
-from app.models.scope import user_scopes
 
 if TYPE_CHECKING:
     from app.models.address import Address
-    from app.models.scope import Scope
 
 
 class User(BaseModel):
     __tablename__ = "users"
     __table_args__ = (
+        Index(
+            "uq_users_username_not_deleted",
+            "username",
+            unique=True,
+            postgresql_where=text("deleted_at IS NULL"),
+        ),
         Index(
             "uq_users_email_not_deleted",
             "email",
@@ -24,6 +29,7 @@ class User(BaseModel):
         ),
     )
 
+    username: Mapped[str] = mapped_column(String(50), nullable=False)
     email: Mapped[str] = mapped_column(String(320), nullable=False)
     password: Mapped[str] = mapped_column(String(255), nullable=False)
     is_active: Mapped[bool] = mapped_column(
@@ -31,9 +37,16 @@ class User(BaseModel):
         nullable=False,
         server_default=text("true"),
     )
-    scopes: Mapped[list[Scope]] = relationship(
-        secondary=user_scopes,
-        back_populates="users",
+    scope: Mapped[UserScope] = mapped_column(
+        Enum(
+            UserScope,
+            name="user_scope",
+            native_enum=False,
+            values_callable=lambda scopes: [scope.value for scope in scopes],
+        ),
+        nullable=False,
+        default=UserScope.USER,
+        server_default=UserScope.USER.value,
     )
     addresses: Mapped[list[Address]] = relationship(
         back_populates="user",

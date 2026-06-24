@@ -19,7 +19,12 @@ async def register(
     auth_service: Annotated[AuthService, Depends(get_auth_service)],
     locale: Annotated[str, Depends(get_locale)],
 ) -> AuthResponse:
-    user, access_token = await auth_service.register(payload.email, payload.password, locale)
+    user, access_token = await auth_service.register(
+        payload.username,
+        payload.email,
+        payload.password,
+        locale,
+    )
     return AuthResponse(access_token=access_token, user=UserResponse.from_user(user))
 
 
@@ -29,7 +34,7 @@ async def login(
     auth_service: Annotated[AuthService, Depends(get_auth_service)],
     locale: Annotated[str, Depends(get_locale)],
 ) -> AuthResponse:
-    user, access_token = await auth_service.login(payload.email, payload.password, locale)
+    user, access_token = await auth_service.login(payload.identifier, payload.password, locale)
     return AuthResponse(access_token=access_token, user=UserResponse.from_user(user))
 
 

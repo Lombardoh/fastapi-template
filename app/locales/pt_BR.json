@@ -11,7 +11,7 @@
   "not_found": "Recurso não encontrado",
   "request_error": "Não foi possível concluir a solicitação",
   "unauthorized": "Autenticação obrigatória",
-  "user_already_exists": "Ja existe um usuario com este email",
+  "user_already_exists": "Ja existe um usuario com este usuario ou email",
   "user_not_found": "Usuario nao encontrado",
   "validation_error": "A solicitação contém dados inválidos"
 }
