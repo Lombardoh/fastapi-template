@@ -6,7 +6,7 @@ from pathlib import Path
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from app.constants import AVAILABLE_LOCALES, DEFAULT_LOCALE
+from app.constants.config_constants import AVAILABLE_LOCALES, DEFAULT_LOCALE
 from app.exceptions.base import ApplicationError
 
 LOCALES_PATH = Path(__file__).resolve().parent.parent / "locales"

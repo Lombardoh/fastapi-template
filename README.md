@@ -32,6 +32,7 @@ The application runs on the host, so `DATABASE_URL` must use the exposed host po
 ## Alembic
 
 ```powershell
+poetry run alembic revision --autogenerate -m "describe change"
 poetry run alembic upgrade head
 ```
 

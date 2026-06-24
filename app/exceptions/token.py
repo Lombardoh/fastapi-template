@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fastapi import status
 
-from app.constants import DEFAULT_LOCALE
+from app.constants.config_constants import DEFAULT_LOCALE
 from app.exceptions.base import ApplicationError
 
 

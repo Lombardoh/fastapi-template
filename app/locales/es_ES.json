@@ -1,5 +1,7 @@
 {
   "forbidden": "No tienes permiso para realizar esta acción",
+  "inactive_user": "El usuario esta inactivo",
+  "invalid_credentials": "Email o contrasena invalidos",
   "invalid_access_token": "Token de acceso inválido",
   "invalid_access_token_subject": "Sujeto del token de acceso inválido",
   "invalid_access_token_type": "Tipo de token de acceso inválido",
@@ -9,5 +11,7 @@
   "not_found": "Recurso no encontrado",
   "request_error": "No se pudo completar la solicitud",
   "unauthorized": "Se requiere autenticación",
+  "user_already_exists": "Ya existe un usuario con este email",
+  "user_not_found": "Usuario no encontrado",
   "validation_error": "La solicitud contiene datos inválidos"
 }
